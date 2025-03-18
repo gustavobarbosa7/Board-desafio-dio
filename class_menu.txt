@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class Menu {
+
+    private static Scanner scanner = new Scanner(System.in);
+    private BancoDeDados bancoDeDados;
+
+    public Menu(BancoDeDados bancoDeDados) {
+        this.bancoDeDados = bancoDeDados;
+    }
+
+    public void exibirMenu() {
+        int opcao = 0;
+        while (opcao != 4) {
+            System.out.println("Escolha uma opção:");
+            System.out.println("1 - Criar novo tabuleiro");
+            System.out.println("2 - Selecionar tabuleiro");
+            System.out.println("3 - Sair");
+            opcao = scanner.nextInt();
+            scanner.nextLine(); // Consome a quebra de linha
+
+            switch (opcao) {
+                case 1:
+                    criarTabuleiro();
+                    break;
+                case 2:
+                    selecionarTabuleiro();
+                    break;
+                case 3:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+    }
+
+    private void criarTabuleiro() {
+        System.out.print("Digite o nome do tabuleiro: ");
+        String nome = scanner.nextLine();
+        Tabuleiro tabuleiro = new Tabuleiro(nome);
+        
+        // Exemplo de como adicionar uma coluna
+        Coluna coluna = new Coluna("Coluna 1", "Inicial", 1);
+        tabuleiro.adicionarColuna(coluna);
+        
+        bancoDeDados.salvarTabuleiro(tabuleiro);
+        System.out.println("Tabuleiro criado e salvo com sucesso!");
+    }
+
+    private void selecionarTabuleiro() {
+        // Lógica para selecionar um tabuleiro existente
+        System.out.println("Selecionando tabuleiro...");
+    }
+}

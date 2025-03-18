@@ -1,0 +1,41 @@
+import java.sql.*;
+
+public class BancoDeDados {
+    private Connection conn;
+
+    public BancoDeDados(String url, String usuario, String senha) {
+        try {
+            this.conn = DriverManager.getConnection(url, usuario, senha);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void salvarTabuleiro(Tabuleiro tabuleiro) {
+        try {
+            String sql = "INSERT INTO tabuleiros (nome) VALUES (?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, tabuleiro.getNome());
+            stmt.executeUpdate();
+            for (Coluna coluna : tabuleiro.getColunas()) {
+                salvarColuna(coluna, tabuleiro.getNome());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void salvarColuna(Coluna coluna, String tabuleiroNome) {
+        try {
+            String sql = "INSERT INTO colunas (nome, tipo, ordem, tabuleiro_nome) VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, coluna.getNome());
+            stmt.setString(2, coluna.getTipo());
+            stmt.setInt(3, coluna.getOrdem());
+            stmt.setString(4, tabuleiroNome);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,25 @@
+CREATE TABLE tabuleiros (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE colunas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    tipo VARCHAR(255) NOT NULL,
+    ordem INT NOT NULL,
+    tabuleiro_nome VARCHAR(255) NOT NULL,
+    FOREIGN KEY (tabuleiro_nome) REFERENCES tabuleiros(nome)
+);
+
+CREATE TABLE cartoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descricao TEXT NOT NULL,
+    data_criacao DATETIME NOT NULL,
+    data_movimentacao DATETIME,
+    bloqueado BOOLEAN DEFAULT FALSE,
+    aviso_bloqueio TEXT,
+    coluna_id INT,
+    FOREIGN KEY (coluna_id) REFERENCES colunas(id)
+);

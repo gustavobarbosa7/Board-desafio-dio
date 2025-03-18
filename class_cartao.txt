@@ -1,0 +1,46 @@
+import java.util.Date;
+
+public class Cartao {
+    private String titulo;
+    private String descricao;
+    private Date dataCriacao;
+    private Date dataMovimentacao;
+    private boolean bloqueado;
+    private String avisoBloqueio;
+
+    public Cartao(String titulo, String descricao) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.dataCriacao = new Date();
+        this.bloqueado = false;
+    }
+
+    public void bloquear(String aviso) {
+        this.bloqueado = true;
+        this.avisoBloqueio = aviso;
+    }
+
+    public void desbloquear() {
+        this.bloqueado = false;
+        this.avisoBloqueio = null;
+    }
+
+    public boolean isBloqueado() {
+        return bloqueado;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public Date getDataMovimentacao() {
+        return dataMovimentacao;
+    }
+
+    public void moverParaProximaColuna() {
+        if (!isBloqueado()) {
+            // Lógica para mover o cartão para a próxima coluna
+            this.dataMovimentacao = new Date();
+        }
+    }
+}

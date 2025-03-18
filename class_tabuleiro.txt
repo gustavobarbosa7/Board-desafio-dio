@@ -1,0 +1,32 @@
+import java.util.List;
+
+public class Tabuleiro {
+    private String nome;
+    private List<Coluna> colunas;
+
+    public Tabuleiro(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public List<Coluna> getColunas() {
+        return colunas;
+    }
+
+    public void adicionarColuna(Coluna coluna) {
+        this.colunas.add(coluna);
+    }
+    
+    public boolean validarTabuleiro() {
+        int qtdInicial = 0, qtdCancelamento = 0, qtdFinal = 0;
+        for (Coluna coluna : colunas) {
+            if (coluna.getTipo().equals("Inicial")) qtdInicial++;
+            if (coluna.getTipo().equals("Cancelamento")) qtdCancelamento++;
+            if (coluna.getTipo().equals("Final")) qtdFinal++;
+        }
+        return qtdInicial == 1 && qtdCancelamento == 1 && qtdFinal == 1 && colunas.size() >= 3;
+    }
+}
